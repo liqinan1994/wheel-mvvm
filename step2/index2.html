@@ -1,0 +1,48 @@
+<script>
+	// 发布订阅模式
+	class Publisher{
+		constructor(){
+			this.subscribes = [] 
+		}
+		addSubscribe(subscribe){
+			let index = this.subscribes.indexOf(subscribe)
+			if(index === -1){
+				this.subscribes.push(subscribe)
+			}
+			
+		}
+		removeSubscribe(subscribe){
+			let index = this.subscribes.indexOf(subscribe)
+			if(index>-1){
+				this.subscribes.splice(index,1)
+			}
+		}
+		notify(){
+			for(var i in this.subscribes){
+				this.subscribes[i].update()
+			}
+		}
+	}
+
+	class Subscriber{
+		constructor(name){
+			this.name = name
+		}
+		update(){
+			console.log(`${this.name} updated`)
+		}
+		subscribeTo(publisher){
+			publisher.addSubscribe(this)
+		}
+	}
+
+    let subscriber1 = new Subscriber('Li')
+    let subscriber2 = new Subscriber('John')
+    let publisher = new Publisher()
+
+    subscriber1.subscribeTo(publisher)
+    subscriber2.subscribeTo(publisher)
+
+    publisher.notify()
+
+</script>
