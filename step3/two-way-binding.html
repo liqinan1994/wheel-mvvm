@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>双向数据绑定</title>
+</head>
+<body>
+	<div id="app">
+		<input v-model="name" type="text">
+		<h1>{{name}}'s age is {{age}}</h1>
+	</div>
+
+	<script>
+
+        class Mvvm{
+        	constructor(opts){
+        		this.init()
+        		observe(opts)
+        		new Compiles(this)
+        	}
+
+        	init(){
+        		this.$el = document.querySelector(opts.el)
+        		this.$data = opts.data
+        	}
+        }
+
+		let vm = new Mvvm({
+			el: "#app",
+			data:{
+				name: "KellanLi",
+				age: 2
+			}
+		})
+	</script>
+</body>
+</html>

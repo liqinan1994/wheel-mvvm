@@ -1,0 +1,55 @@
+
+<!-- 数据的劫持 -->
+<script>
+	let data = {
+		name: 'KellanLi',
+		friend: ['Ben','John','Marry']
+	}
+	observe(data)
+
+
+	function observe(data){
+		if(!data || typeof data !== 'object') return
+
+		// for(let key in data){
+		// 	let val = data[key]
+  //            Object.defineProperty(data,key,{
+  //            	enumerable: true,
+  //            	configurable: true,
+  //            	get:function(){
+  //            		console.log(`get ${val}`)
+  //            		return val
+  //            	},
+  //            	set:function(newVal){
+  //            		console.log(`change happen: ${val}=>${newVal}`)
+  //            		val = newVal
+  //            	}
+  //            })
+  //            if(typeof val === 'object'){
+  //            	observe(val)
+  //            }
+		// }
+            var keys = Object.keys(data)
+            keys.map((key)=>{
+                  let val = data[key]
+                  Object.defineProperty(data,key,{
+                        enumerable:true,
+                        configurable: true,
+                        get(){
+                              console.log(`get ${val}`)
+                              return val
+                        },
+                        set(newVal){
+                              console.log(`change happen: ${val}=>${newVal}`)
+                              val = newVal
+                        }
+                  })
+                  if(typeof val === 'object'){
+                        observe(val)
+                  }
+            })
+      
+
+      }
+
+</script>
